@@ -1,0 +1,228 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Courier New', monospace;
+    background: #f5f5f5;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+}
+
+.container {
+    background: white;
+    border: 1px solid #ddd;
+    width: 100%;
+    max-width: 900px;
+    padding: 40px;
+}
+
+header {
+    text-align: center;
+    margin-bottom: 30px;
+    border-bottom: 2px solid #333;
+    padding-bottom: 20px;
+}
+
+h1 {
+    font-size: 2rem;
+    color: #333;
+    font-weight: normal;
+    margin-bottom: 8px;
+    letter-spacing: 2px;
+}
+
+.subtitle {
+    color: #666;
+    font-size: 0.85rem;
+}
+
+.editor-wrapper {
+    display: grid;
+    grid-template-columns: 60px 1fr 30px 40px;
+    gap: 10px;
+    background: white;
+    border: 1px solid #333;
+    padding: 20px 10px;
+    margin-bottom: 20px;
+    max-height: 500px;
+    overflow: hidden;
+}
+
+.line-numbers,
+.syllable-counts,
+.rhyme-indicators {
+    overflow: hidden;
+    color: #999;
+    font-family: 'Courier New', monospace;
+    font-size: 14px;
+    line-height: 1.6;
+    padding-top: 2px;
+    user-select: none;
+}
+
+.line-numbers {
+    text-align: center;
+    padding-left: 10px;
+    border-left: 1px solid #ddd;
+}
+
+.line-numbers div,
+.syllable-counts .syllable-count,
+.rhyme-indicators .rhyme-indicator {
+    min-height: 22.4px;
+}
+
+.syllable-counts {
+    text-align: center;
+    padding-right: 10px;
+    border-right: 1px solid #ddd;
+    font-weight: normal;
+    color: #333;
+}
+
+.rhyme-indicators {
+    text-align: center;
+    padding-right: 10px;
+    border-right: 1px solid #ddd;
+    font-weight: bold;
+    color: #333;
+}
+
+.rhyme-indicator {
+    min-height: 22.4px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.rhyme-dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+}
+
+.rhyme-color-0 .rhyme-dot { background-color: #2E7D32; } /* Green */
+.rhyme-color-1 .rhyme-dot { background-color: #1976D2; } /* Blue */
+.rhyme-color-2 .rhyme-dot { background-color: #C2185B; } /* Pink */
+.rhyme-color-3 .rhyme-dot { background-color: #F57C00; } /* Orange */
+.rhyme-color-4 .rhyme-dot { background-color: #7B1FA2; } /* Purple */
+.rhyme-color-5 .rhyme-dot { background-color: #0097A7; } /* Teal */
+.rhyme-color-6 .rhyme-dot { background-color: #D32F2F; } /* Red */
+.rhyme-color-7 .rhyme-dot { background-color: #5D4037; } /* Brown */
+.rhyme-color-8 .rhyme-dot { background-color: #388E3C; } /* Light Green */
+.rhyme-color-9 .rhyme-dot { background-color: #1565C0; } /* Dark Blue */
+.rhyme-color-10 .rhyme-dot { background-color: #AD1457; } /* Deep Pink */
+.rhyme-color-11 .rhyme-dot { background-color: #E64A19; } /* Deep Orange */
+.rhyme-color-12 .rhyme-dot { background-color: #6A1B9A; } /* Deep Purple */
+.rhyme-color-13 .rhyme-dot { background-color: #00838F; } /* Dark Teal */
+.rhyme-color-14 .rhyme-dot { background-color: #C62828; } /* Dark Red */
+.rhyme-color-15 .rhyme-dot { background-color: #4E342E; } /* Dark Brown */
+.rhyme-color-16 .rhyme-dot { background-color: #689F38; } /* Lime Green */
+.rhyme-color-17 .rhyme-dot { background-color: #0277BD; } /* Light Blue */
+.rhyme-color-18 .rhyme-dot { background-color: #8E24AA; } /* Violet */
+.rhyme-color-19 .rhyme-dot { background-color: #00695C; } /* Green Teal */
+.rhyme-color-20 .rhyme-dot { background-color: #EF6C00; } /* Bright Orange */
+.rhyme-color-21 .rhyme-dot { background-color: #512DA8; } /* Indigo */
+.rhyme-color-22 .rhyme-dot { background-color: #AFB42B; } /* Yellow Green */
+.rhyme-color-23 .rhyme-dot { background-color: #0288D1; } /* Cyan */
+.rhyme-color-24 .rhyme-dot { background-color: #5E35B1; } /* Deep Indigo */
+.rhyme-color-25 .rhyme-dot { background-color: #00796B; } /* Teal Green */
+.rhyme-color-26 .rhyme-dot { background-color: #D84315; } /* Rust */
+.rhyme-color-27 .rhyme-dot { background-color: #303F9F; } /* Royal Blue */
+.rhyme-color-28 .rhyme-dot { background-color: #827717; } /* Olive */
+.rhyme-color-29 .rhyme-dot { background-color: #00ACC1; } /* Sky Blue */
+
+
+#editor {
+    background: transparent;
+    border: none;
+    outline: none;
+    resize: none;
+    font-family: 'Courier New', monospace;
+    font-size: 14px;
+    line-height: 1.6;
+    overflow-y: auto;
+    overflow-x: hidden;
+    max-height: 460px;
+    padding: 2px 10px 0 10px;
+    color: #333;
+}
+
+#editor::-webkit-scrollbar {
+    width: 8px;
+}
+
+#editor::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+#editor::-webkit-scrollbar-thumb {
+    background: #ccc;
+    border-radius: 4px;
+}
+
+#editor::-webkit-scrollbar-thumb:hover {
+    background: #999;
+}
+
+.actions {
+    display: flex;
+    justify-content: center;
+    gap: 12px;
+    flex-wrap: wrap;
+    margin-bottom: 20px;
+}
+
+.btn {
+    padding: 10px 20px;
+    border: 1px solid #333;
+    background: white;
+    font-size: 0.85rem;
+    font-weight: normal;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    font-family: 'Courier New', monospace;
+    color: #333;
+}
+
+.btn-primary {
+    background: #333;
+    color: white;
+}
+
+.btn-primary:hover {
+    background: #000;
+}
+
+.btn-secondary {
+    background: white;
+    color: #333;
+}
+
+.btn-secondary:hover {
+    background: #f5f5f5;
+}
+
+.btn:active {
+    transform: scale(0.98);
+}
+
+@media (max-width: 600px) {
+    .container {
+        padding: 20px;
+    }
+    
+    h1 {
+        font-size: 2rem;
+    }
+    
+    .editor-wrapper {
+        grid-template-columns: 50px 1fr 30px 30px;
+    }
+}

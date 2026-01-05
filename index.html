@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Songwriting Editor</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Songwriting Editor</h1>
+            <p class="subtitle">Write lyrics with syllable counting per line</p>
+        </header>
+        
+        <div class="editor-wrapper">
+            <div class="syllable-counts" id="syllableCounts"></div>
+            <textarea 
+                id="editor" 
+                placeholder="Start writing your lyrics here...&#10;Each line will show its syllable count"
+                spellcheck="false"
+            ></textarea>
+            <div class="rhyme-indicators" id="rhymeIndicators"></div>
+            <div class="line-numbers" id="lineNumbers"></div>
+        </div>
+
+        <div class="actions">
+            <button id="removeBlankLines" class="btn btn-primary">Remove Blank Lines</button>
+            <button id="downloadTxt" class="btn btn-secondary">Download TXT</button>
+            <button id="copyToClipboard" class="btn btn-secondary">Copy to Clipboard</button>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
