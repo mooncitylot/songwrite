@@ -1,34 +1,35 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Songwriting Editor</title>
-    <link rel="stylesheet" href="style.css">
-</head>
-<body>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
     <div class="container">
-        
-        <div class="editor-wrapper">
-            <div class="syllable-counts" id="syllableCounts"></div>
-            <textarea 
-                id="editor" 
-                placeholder="Start writing your lyrics here...&#10;Each line will show its syllable count"
-                spellcheck="false"
-            ></textarea>
-            <div class="rhyme-indicators" id="rhymeIndicators"></div>
-            <div class="line-numbers" id="lineNumbers"></div>
-        </div>
+      <div class="editor-wrapper">
+        <div class="syllable-counts" id="syllableCounts"></div>
+        <textarea
+          id="editor"
+          placeholder="Start writing your lyrics here...&#10;Each line will show its syllable count"
+          spellcheck="false"
+        ></textarea>
+        <div class="rhyme-indicators" id="rhymeIndicators"></div>
+        <div class="line-numbers" id="lineNumbers"></div>
+      </div>
 
-        <div class="actions">
-            <button id="insertBreak" class="btn btn-primary">Brk</button>
-            <button id="removeBlankLines" class="btn btn-secondary">Fmt</button>
-            <button id="clearAll" class="btn btn-secondary">Clr</button>
-            <button id="downloadTxt" class="btn btn-secondary">Dwnld</button>
-            <button id="copyToClipboard" class="btn btn-secondary">Cpy</button>
-        </div>
+      <div class="actions">
+        <button id="insertBreak" class="btn btn-primary">Break</button>
+        <button id="removeBlankLines" class="btn btn-secondary">
+          No Blank Lines
+        </button>
+        <button id="clearAll" class="btn btn-secondary">Clear Page</button>
+        <button id="downloadTxt" class="btn btn-secondary">Download</button>
+        <button id="copyToClipboard" class="btn btn-secondary">Copy</button>
+      </div>
     </div>
 
     <script src="script.js"></script>
-</body>
+  </body>
 </html>
