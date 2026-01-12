@@ -8,10 +8,6 @@
 </head>
 <body>
     <div class="container">
-        <header>
-            <h1>Songwriting Editor</h1>
-            <p class="subtitle">Write lyrics with syllable counting per line</p>
-        </header>
         
         <div class="editor-wrapper">
             <div class="syllable-counts" id="syllableCounts"></div>
@@ -25,7 +21,9 @@
         </div>
 
         <div class="actions">
-            <button id="removeBlankLines" class="btn btn-primary">Remove Blank Lines</button>
+            <button id="insertBreak" class="btn btn-primary">Insert Break</button>
+            <button id="removeBlankLines" class="btn btn-secondary">Remove Blank Lines</button>
+            <button id="clearAll" class="btn btn-secondary">Clear All</button>
             <button id="downloadTxt" class="btn btn-secondary">Download TXT</button>
             <button id="copyToClipboard" class="btn btn-secondary">Copy to Clipboard</button>
         </div>
