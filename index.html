@@ -8,22 +8,42 @@
   </head>
   <body>
     <div class="container">
-      <div class="editor-wrapper">
-        <div class="syllable-counts" id="syllableCounts"></div>
-        <textarea
-          id="editor"
-          placeholder="Start writing your lyrics here...&#10;Each line will show its syllable count"
-          spellcheck="false"
-        ></textarea>
-        <div class="rhyme-indicators" id="rhymeIndicators"></div>
-        <div class="line-numbers" id="lineNumbers"></div>
+      <div class="editor-wrapper" id="editorWrapper">
+        <div class="gutter gutter-flags">
+          <div class="gutter-inner" id="flagGutter"></div>
+        </div>
+
+        <div class="gutter gutter-syllables">
+          <div class="gutter-inner" id="syllableCounts"></div>
+        </div>
+
+        <div class="editor-pane">
+          <div class="highlight-layer">
+            <div class="highlight-inner" id="highlightInner"></div>
+          </div>
+          <textarea
+            id="editor"
+            placeholder="Start writing your lyrics here...&#10;Each line will show its syllable count"
+            spellcheck="false"
+          ></textarea>
+        </div>
+
+        <div class="gutter gutter-rhymes">
+          <div class="gutter-inner" id="rhymeIndicators"></div>
+        </div>
+
+        <div class="gutter gutter-lines">
+          <div class="gutter-inner" id="lineNumbers"></div>
+        </div>
       </div>
 
       <div class="actions">
+        <span class="flag-summary" id="flagSummary"></span>
         <button id="insertBreak" class="btn btn-primary">Break</button>
         <button id="removeBlankLines" class="btn btn-secondary">
           No Blank Lines
         </button>
+        <button id="clearFlags" class="btn btn-secondary">Clear Flags</button>
         <button id="clearAll" class="btn btn-secondary">Clear Page</button>
         <button id="downloadTxt" class="btn btn-secondary">Download</button>
         <button id="copyToClipboard" class="btn btn-secondary">Copy</button>

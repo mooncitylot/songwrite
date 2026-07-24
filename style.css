@@ -4,13 +4,22 @@
   box-sizing: border-box;
 }
 
+:root {
+  --editor-font: "Courier New", monospace;
+  --editor-font-size: 14px;
+  --editor-line-height: 1.6;
+  --editor-row: 22.4px;
+  --editor-pad-top: 2px;
+  --flag-color: #d32f2f;
+}
+
 body {
-  font-family: "Courier New", monospace;
+  font-family: var(--editor-font);
   background: #f5f5f5;
   min-height: 100vh;
   display: flex;
   justify-content: center;
-  align-items: center;
+  align-items: flex-start;
   padding: 20px;
 }
 
@@ -44,67 +53,200 @@ h1 {
 
 .editor-wrapper {
   display: grid;
-  grid-template-columns: 60px 1fr 30px 40px;
+  grid-template-columns: 30px 52px 1fr 28px 42px;
   gap: 10px;
   background: white;
-  border: 1px solid #333;
   padding: 20px 10px;
   margin-bottom: 20px;
-  max-height: 500px;
+  height: 60vh;
+  min-height: 320px;
+}
+
+/* Each gutter is a fixed-height viewport; its inner track is translated to
+   follow the textarea's scroll position. */
+.gutter {
+  position: relative;
+  height: 100%;
   overflow: hidden;
 }
 
-.line-numbers,
-.syllable-counts,
-.rhyme-indicators {
-  overflow: hidden;
+.gutter-inner {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  padding-top: var(--editor-pad-top);
   color: #999;
-  font-family: "Courier New", monospace;
-  font-size: 14px;
-  line-height: 1.6;
-  padding-top: 2px;
+  font-family: var(--editor-font);
+  font-size: var(--editor-font-size);
+  line-height: var(--editor-line-height);
   user-select: none;
 }
 
-.line-numbers {
-  text-align: center;
-  padding-left: 10px;
+/* One cell per logical line. Its height is set inline to the measured height
+   of that line in the textarea, so wrapped lines stay aligned. */
+.gutter-cell {
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  min-height: var(--editor-row);
+}
+
+.gutter-lines {
   border-left: 1px solid #ddd;
 }
 
-.line-numbers div,
-.syllable-counts .syllable-count,
-.rhyme-indicators .rhyme-indicator {
-  min-height: 22.4px;
+.gutter-lines .gutter-inner {
+  text-align: center;
+  padding-left: 10px;
 }
 
-.syllable-counts {
+.gutter-syllables {
+  border-right: 1px solid #ddd;
+}
+
+.gutter-syllables .gutter-inner {
   text-align: center;
   padding-right: 10px;
-  border-right: 1px solid #ddd;
-  font-weight: normal;
   color: #333;
 }
 
-.rhyme-indicators {
+.gutter-rhymes {
+  border-right: 1px solid #ddd;
+}
+
+.gutter-rhymes .gutter-inner {
   text-align: center;
   padding-right: 10px;
-  border-right: 1px solid #ddd;
-  font-weight: bold;
   color: #333;
 }
 
-.rhyme-indicator {
-  min-height: 22.4px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+.gutter-flags {
+  border-right: 1px solid #ddd;
 }
 
 .rhyme-dot {
   width: 10px;
   height: 10px;
   border-radius: 50%;
+  /* center the dot on the first visual row of the line */
+  margin-top: calc((var(--editor-row) - 10px) / 2);
+}
+
+/* Near rhymes render as a ring: the group color with a hollow center. */
+.rhyme-dot.near-rhyme::after {
+  content: "";
+  display: block;
+  width: 6px;
+  height: 6px;
+  margin: 2px;
+  border-radius: 50%;
+  background: #fff;
+}
+
+.flag-btn {
+  height: var(--editor-row);
+  width: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  border: none;
+  background: none;
+  cursor: pointer;
+  color: #dcdcdc;
+  transition: color 0.15s ease;
+}
+
+.flag-btn:hover {
+  color: #999;
+}
+
+.flag-btn:focus-visible {
+  outline: 1px solid #333;
+}
+
+.flag-btn.flagged,
+.flag-btn.flagged:hover {
+  color: var(--flag-color);
+}
+
+.editor-pane {
+  position: relative;
+  height: 100%;
+  overflow: hidden;
+}
+
+.highlight-layer {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.highlight-inner {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  padding-top: var(--editor-pad-top);
+}
+
+.highlight-row {
+  min-height: var(--editor-row);
+}
+
+.highlight-row.flagged {
+  background: rgba(211, 47, 47, 0.09);
+  box-shadow: inset 2px 0 0 var(--flag-color);
+}
+
+#editor {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  background: transparent;
+  border: none;
+  outline: none;
+  resize: none;
+  font-family: var(--editor-font);
+  font-size: var(--editor-font-size);
+  line-height: var(--editor-line-height);
+  overflow-y: auto;
+  overflow-x: hidden;
+  /* keep the scrollbar space reserved so wrap width never shifts */
+  scrollbar-gutter: stable;
+  padding: var(--editor-pad-top) 10px 0 10px;
+  color: #333;
+}
+
+/* Off-screen twin of the textarea used to measure per-line wrapped heights. */
+.measure-mirror {
+  position: absolute;
+  top: -99999px;
+  left: 0;
+  visibility: hidden;
+  pointer-events: none;
+  white-space: pre-wrap;
+  overflow-wrap: break-word;
+  word-break: normal;
+}
+
+#editor::-webkit-scrollbar {
+  width: 8px;
+}
+
+#editor::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+#editor::-webkit-scrollbar-thumb {
+  background: #ccc;
+  border-radius: 4px;
+}
+
+#editor::-webkit-scrollbar-thumb:hover {
+  background: #999;
 }
 
 .rhyme-color-0 .rhyme-dot {
@@ -198,45 +340,20 @@ h1 {
   background-color: #00acc1;
 } /* Sky Blue */
 
-#editor {
-  background: transparent;
-  border: none;
-  outline: none;
-  resize: none;
-  font-family: "Courier New", monospace;
-  font-size: 14px;
-  line-height: 1.6;
-  overflow-y: auto;
-  overflow-x: hidden;
-  max-height: 460px;
-  padding: 2px 10px 0 10px;
-  color: #333;
-}
-
-#editor::-webkit-scrollbar {
-  width: 8px;
-}
-
-#editor::-webkit-scrollbar-track {
-  background: transparent;
-}
-
-#editor::-webkit-scrollbar-thumb {
-  background: #ccc;
-  border-radius: 4px;
-}
-
-#editor::-webkit-scrollbar-thumb:hover {
-  background: #999;
-}
-
 .actions {
   display: flex;
   flex-direction: row;
   justify-content: flex-end;
+  align-items: center;
   gap: 12px;
   flex-wrap: wrap;
   margin-bottom: 20px;
+}
+
+.flag-summary {
+  margin-right: auto;
+  font-size: 0.8rem;
+  color: var(--flag-color);
 }
 
 .btn {
@@ -247,7 +364,7 @@ h1 {
   font-weight: normal;
   cursor: pointer;
   transition: all 0.2s ease;
-  font-family: "Courier New", monospace;
+  font-family: var(--editor-font);
   color: #333;
 }
 
@@ -283,6 +400,7 @@ h1 {
   }
 
   .editor-wrapper {
-    grid-template-columns: 50px 1fr 30px 30px;
+    grid-template-columns: 26px 44px 1fr 24px 32px;
+    gap: 6px;
   }
 }
